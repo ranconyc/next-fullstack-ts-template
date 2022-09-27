@@ -1,7 +1,12 @@
-import '../styles/globals.css';
 import type { AppProps } from 'next/app';
+import '../styles/globals.css';
+import { NextPageWithLayout } from './page';
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+interface AppPageWithLayout extends AppProps {
+  Component: NextPageWithLayout;
+}
+function MyApp({ Component, pageProps }: AppPageWithLayout) {
+  const getLayout = Component.getLayout || ((page) => page);
+  return getLayout(<Component {...pageProps} />);
 }
 export default MyApp;
